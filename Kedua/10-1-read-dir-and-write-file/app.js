@@ -16,8 +16,18 @@
 const fs = require('fs');
 
 function readDirAndWriteFile() {
-  // Tulis jawaban di bawah ini
-  
+  // 1. Baca isi direktori saat ini
+  const items = fs.readdirSync(__dirname, { withFileTypes: true });
+
+  // 2. Filter hanya yang merupakan direktori DAN bukan folder sistem (seperti .git atau node_modules jika ada)
+  const folders = items
+    .filter((item) => item.isDirectory())
+    .map((item) => item.name)
+    .sort(); // 3. Urutkan secara Ascending (A-Z)
+
+  // 4. Gabungkan dengan koma dan spasi, lalu tulis ke out.txt
+  const result = folders.join(", ");
+  fs.writeFileSync("out.txt", result);
 }
 
 readDirAndWriteFile();
