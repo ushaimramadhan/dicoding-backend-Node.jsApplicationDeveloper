@@ -11,6 +11,13 @@
 
 const { spawn } = require('child_process');
 
-function main(command, args) {
-  return spawn();
+function main(command, args = []) {
+  const child = spawn(command, args, {
+    stdio: ["ignore", "inherit", "pipe"],
+  });
+
+  return child;
 }
+
+module.exports = main;
+
